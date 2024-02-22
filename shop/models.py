@@ -1,11 +1,12 @@
 from django.db import models
+from django_jalali.db import models as jmodels
 
 # Create your models here.
 
 
 class Category(models.Model):
-	name = models.CharField(max_length=255)
-	slug = models.SlugField(max_length=255, unique=True)
+	name = models.CharField(max_length=255, verbose_name='نام')
+	slug = models.SlugField(max_length=255, unique=True, verbose_name='اسلاگ')
 
 	class Meta:
 		ordering = ['name']
@@ -31,8 +32,9 @@ class Product(models.Model):
 	off = models.PositiveIntegerField(default=0, verbose_name='تخفیف')
 	new_price = models.PositiveIntegerField(default=0, verbose_name='قیمت پس از تخفیف')
 	# date
-	created = models.DateTimeField(auto_now_add=True)
-	updated = models.DateTimeField(auto_now=True)
+	created = jmodels.jDateTimeField(auto_now_add=True)
+	updated = jmodels.jDateTimeField(auto_now=True)
+
 
 	class Meta:
 		ordering = ['-created']
@@ -64,7 +66,7 @@ class Image(models.Model):
 	file = models.ImageField(upload_to='product_images/%Y/%m/%d')
 	title = models.CharField(max_length=255, verbose_name='عنوان', null=True, blank=True)
 	description = models.TextField(verbose_name='توضیحات', null=True, blank=True)
-	created = models.DateTimeField(auto_now_add=True)
+	created = jmodels.jDateTimeField(auto_now_add=True)
 
 	class Meta:
 		ordering = ['-created']
