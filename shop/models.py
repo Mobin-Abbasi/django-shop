@@ -29,11 +29,11 @@ class Product(models.Model):
 	slug = models.CharField(max_length=255, unique=True, verbose_name='اسلاگ')
 	inventory = models.PositiveIntegerField(default=0, verbose_name='موجودی')
 	price = models.PositiveIntegerField(default=0, verbose_name='قیمت')
-	off = models.PositiveIntegerField(default=0, verbose_name='تخفیف')
+	off = models.PositiveIntegerField(default=0, verbose_name='درصد تخفیف')
 	new_price = models.PositiveIntegerField(default=0, verbose_name='قیمت پس از تخفیف')
 	# date
-	created = jmodels.jDateTimeField(auto_now_add=True)
-	updated = jmodels.jDateTimeField(auto_now=True)
+	created = jmodels.jDateTimeField(auto_now_add=True, verbose_name='زمان ایجاد')
+	updated = jmodels.jDateTimeField(auto_now=True, verbose_name='زمان اپدیت')
 
 
 	class Meta:
@@ -66,7 +66,7 @@ class Image(models.Model):
 	file = models.ImageField(upload_to='product_images/%Y/%m/%d')
 	title = models.CharField(max_length=255, verbose_name='عنوان', null=True, blank=True)
 	description = models.TextField(verbose_name='توضیحات', null=True, blank=True)
-	created = jmodels.jDateTimeField(auto_now_add=True)
+	created = jmodels.jDateTimeField(auto_now_add=True, verbose_name='زمان ایجاد')
 
 	class Meta:
 		ordering = ['-created']
