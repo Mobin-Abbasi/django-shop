@@ -29,6 +29,23 @@ class Cart:
             del self.cart[product_id]
         self.save()
 
+    def clear(self):
+        del self.session['cart']
+        self.save()
+
+    def get_post_price(self):
+        weight = sum(item['weight'] * item['quantity'] for item in self.session.values())
+        if weight < 1000:
+            return 20000
+        elif 1000 <= weight <= 2000:
+            return 30000
+        else:
+            return 50000
+
+    def get_total_price(self):
+        price = sum(item['price'] * item['quantity'] for item in self.session.values())
+        return price
+
     def __len__(self):
         return sum(item['quantity'] for item in self.session.values())
 
