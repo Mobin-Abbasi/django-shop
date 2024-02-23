@@ -36,6 +36,7 @@ class Product(models.Model):
     price = models.PositiveIntegerField(default=0, verbose_name='قیمت')
     off = models.PositiveIntegerField(default=0, verbose_name='درصد تخفیف')
     new_price = models.PositiveIntegerField(default=0, verbose_name='قیمت پس از تخفیف')
+    weight = models.PositiveIntegerField(default=0, verbose_name='وزن')
     # date
     created = jmodels.jDateTimeField(auto_now_add=True, verbose_name='زمان ایجاد')
     updated = jmodels.jDateTimeField(auto_now=True, verbose_name='زمان اپدیت')
