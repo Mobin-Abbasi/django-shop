@@ -19,7 +19,7 @@ class Cart:
 
     def decrease(self, product):
         product_id = str(product.id)
-        if self.cart[product_id]['quantity'] > 0:
+        if self.cart[product_id]['quantity'] > 1:
             self.cart[product_id]['quantity'] -= 1
         self.save()
 
@@ -34,7 +34,7 @@ class Cart:
         self.save()
 
     def get_post_price(self):
-        weight = sum(item['weight'] * item['quantity'] for item in self.session.values())
+        weight = sum(item['weight'] * item['quantity'] for item in self.cart.values())
         if weight < 1000:
             return 20000
         elif 1000 <= weight <= 2000:
@@ -43,7 +43,7 @@ class Cart:
             return 50000
 
     def get_total_price(self):
-        price = sum(item['price'] * item['quantity'] for item in self.session.values())
+        price = sum(item['price'] * item['quantity'] for item in self.cart.values())
         return price
 
     def __iter__(self):
@@ -56,7 +56,7 @@ class Cart:
             yield item
 
     def __len__(self):
-        return sum(item['quantity'] for item in self.session.values())
+        return sum(item['quantity'] for item in self.cart.values())
 
     def save(self):
         self.session.modified = True
