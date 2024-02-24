@@ -47,6 +47,9 @@ class Cart:
         price = sum(item['price'] * item['quantity'] for item in self.cart.values())
         return price
 
+    def get_final_price(self):
+        return self.get_total_price() + self.get_post_price()
+
     def __iter__(self):
         product_ids = self.cart.keys()
         products = Product.objects.filter(id__in=product_ids)
@@ -54,6 +57,7 @@ class Cart:
         for product in products:
             cart_dict[str(product.id)]['product'] = product
         for item in cart_dict.values():
+            item['total'] = item['price'] * item['quantity']
             yield item
 
     def __len__(self):
