@@ -4,6 +4,7 @@ from shop.models import Product
 from .cart import Cart
 from django.http import JsonResponse
 
+
 # Create your views here.
 
 
@@ -28,3 +29,26 @@ def cart_detail(request):
         'cart': cart
     }
     return render(request, 'cart/detail.html', context)
+
+
+def update_quantity(request):
+    item_id = request.POST.get('item_id')
+    action = request.POST.get('action')
+    try:
+        product = get_object_or_404(Product, id=item_id)
+        cart = Cart(request)
+        if action == 'add':
+            cart.add(product)
+        elif action == 'decrease':
+            cart.decrease(product)
+        context = {
+            'item_count': len(cart),
+            'total_price': cart.get_total_price(),
+            'quantity': cart.cart[item_id]['quantity'],
+            'total': cart.cart[item_id]['quantity'] * cart.cart[item_id]['price'],
+            'final_price': cart.get_final_price(),
+            'success': True,
+        }
+        return JsonResponse(context)
+    except:
+        return JsonResponse({'success': False, 'error': 'item not found'})
