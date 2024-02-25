@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
+    'account.apps.AccountConfig',
     'django_jalali',
 
 ]
@@ -117,6 +118,9 @@ TIME_ZONE = 'Asia/Tehran'
 USE_I18N = True
 
 USE_TZ = True
+
+
+AUTH_USER_MODEL = 'account.ShopUser'
 
 
 # Static files (CSS, JavaScript, Images)

@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>shop | {% block title %}{% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/../../static/css/base.css' %}">
     {% block head %} {% endblock %}
 </head>
 
 <body>
-    {% include 'partials/header.html' %}
-    {% include 'partials/navigation.html' %}
+    {% include 'partials/../partials/header.html' %}
+    {% include 'partials/../partials/navigation.html' %}
     {% block content %} {% endblock %}
-    {% include 'partials/footer.html' %}
+    {% include 'partials/../partials/footer.html' %}
 </body>
 </html>
