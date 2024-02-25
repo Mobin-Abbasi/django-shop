@@ -5,7 +5,8 @@ from shop.models import Product
 # Create your models here.
 
 class Order(models.Model):
-    name = models.CharField(max_length=150, verbose_name='نام')
+    first_name = models.CharField(max_length=50, verbose_name='نام')
+    last_name = models.CharField(max_length=50, verbose_name='نام خانوادگی')
     phone = models.CharField(max_length=11, verbose_name='شماره تماس')
     address = models.CharField(max_length=250, verbose_name='ادرس')
     postal_code = models.CharField(max_length=10, verbose_name='کد پستی')
@@ -43,7 +44,7 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, related_name='order_items', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='order_items', on_delete=models.CASCADE, verbose_name='محصول')
     price = models.PositiveIntegerField(default=0, verbose_name='قیمت')
     quantity = models.PositiveIntegerField(default=1, verbose_name='تعداد')
     weight = models.PositiveIntegerField(default=0, verbose_name='وزن')
@@ -55,4 +56,4 @@ class OrderItem(models.Model):
         return self.price * self.quantity
 
     def get_weight(self):
-        return self.weight
+        return self.weight * self.quantity
