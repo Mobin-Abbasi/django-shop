@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-
 from .models import *
+from .forms import ShopUserChangeForm, ShopUserCreationForm
+
 
 # Register your models here.
 
@@ -10,6 +11,8 @@ from .models import *
 class ShopUserAdmin(UserAdmin):
     ordering = ['phone']
     model = ShopUser
+    add_form = ShopUserCreationForm
+    form = ShopUserChangeForm
     list_display = ['phone', 'first_name', 'last_name', 'is_staff', 'is_active']
     fieldsets = (
         (None, {'fields': ('phone', 'password')}),
