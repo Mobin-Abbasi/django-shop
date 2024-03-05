@@ -8,8 +8,50 @@ class ShopUserCreationForm(UserCreationForm):
         model = ShopUser
         fields = ('phone', 'first_name', 'last_name', 'address', 'is_active', 'is_staff', 'is_superuser')
 
+    def clean_phone(self):
+        phone = self.cleaned_data.get('phone')
+
+        if self.instance.pk:
+            if ShopUser.objects.filter(phone=phone).exclude(pk=self.instance.pk).exists():
+                raise forms.ValidationError('phone is already in exists.')
+        else:
+            if ShopUser.objects.filter(phone=phone).exists():
+                raise forms.ValidationError('phone is already in exists.')
+
+        if not phone.isdigit():
+            raise forms.ValidationError('phone must be a number')
+
+        if not phone.startswith('09'):
+            raise forms.ValidationError('phone must start with 09 digits')
+
+        if len(phone) != 11:
+            raise forms.ValidationError('phone must have 11 digits')
+
+        return phone
+
 
 class ShopUserChangeForm(UserChangeForm):
     class Mate(UserChangeForm.Meta):
         model = ShopUser
         fields = ('phone', 'first_name', 'last_name', 'address', 'is_active', 'is_staff', 'is_superuser')
+
+    def clean_phone(self):
+        phone = self.cleaned_data.get('phone')
+
+        if self.instance.pk:
+            if ShopUser.objects.filter(phone=phone).exclude(pk=self.instance.pk).exists():
+                raise forms.ValidationError('phone is already in exists.')
+        else:
+            if ShopUser.objects.filter(phone=phone).exists():
+                raise forms.ValidationError('phone is already in exists.')
+
+        if not phone.isdigit():
+            raise forms.ValidationError('phone must be a number')
+
+        if not phone.startswith('09'):
+            raise forms.ValidationError('phone must start with 09 digits')
+
+        if len(phone) != 11:
+            raise forms.ValidationError('phone must have 11 digits')
+
+        return phone
