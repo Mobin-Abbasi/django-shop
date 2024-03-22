@@ -4,7 +4,7 @@ from shop.models import Product
 from .cart import Cart
 from django.http import JsonResponse
 # -----------------------test-----------------------
-from kavenegar import *
+# from kavenegar import *
 
 
 # Create your views here.
@@ -23,19 +23,19 @@ def add_to_cart(request, product_id):
 
         # -----------------------test-----------------------
 
-        try:
-            api = KavenegarAPI('49397957535136575A7A66484935584359464A5136726D574630496D744D4B4B707A6B7751506A433378303D')
-            params = {
-                'sender': '10008663',  # optional
-                'receptor': '09214018144',  # multiple mobile number, split by comma
-                'message': f'محصول {str(product)} به سبد خرید شما اضافه شد',
-            }
-            response = api.sms_send(params)
-            print(response)
-        except APIException as e:
-            print(e)
-        except HTTPException as e:
-            print(e)
+        # try:
+        #     api = KavenegarAPI('49397957535136575A7A66484935584359464A5136726D574630496D744D4B4B707A6B7751506A433378303D')
+        #     params = {
+        #         'sender': '10008663',  # optional
+        #         'receptor': '09214018144',  # multiple mobile number, split by comma
+        #         'message': f'محصول {str(product)} به سبد خرید شما اضافه شد',
+        #     }
+        #     response = api.sms_send(params)
+        #     print(response)
+        # except APIException as e:
+        #     print(e)
+        # except HTTPException as e:
+        #     print(e)
 
         # -----------------------\test-----------------------
 
